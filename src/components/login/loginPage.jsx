@@ -53,16 +53,7 @@ export default class Login extends Component {
       //   this.state.pass
       // );
 
-      const resp = [
-        {
-          id: '1',
-          userAccountName: 'Nazim Hussain',
-          userRole: {
-            id: '1',
-            userRoleName: 'ADMIN',
-          },
-        },
-      ];
+      const resp = await this.getDummyData();
 
       if (_.isEmpty(resp)) {
         this.showValidationError('login', 'Invalid credentials..!!');
@@ -205,5 +196,18 @@ export default class Login extends Component {
         </div>
       </div>
     );
+  }
+
+  async getDummyData() {
+    return [
+      {
+        id: '1',
+        userAccountName: 'Nazim Hussain',
+        userRole: {
+          id: '1',
+          userRoleName: 'ADMIN',
+        },
+      },
+    ];
   }
 }

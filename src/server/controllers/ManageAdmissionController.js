@@ -2,14 +2,14 @@ const fetch = require('node-fetch');
 const config = require('../config/config.js');
 const _ = require('lodash');
 
-const productApiConfig = {
+const admissionApiConfig = {
     getAllReligionsEndPoint: config.endpoints.allReligions,
     getAllCategoriesEndPoint: config.endpoints.allCategories,
 };
 
 const ManageAdmissionController = {
     async fetchReligions() {
-        const url = `${productApiConfig.getAllReligionsEndPoint}`;
+        const url = `${admissionApiConfig.getAllReligionsEndPoint}`;
         const OPTIONS = {
             method: 'GET',
             headers: {
@@ -23,31 +23,32 @@ const ManageAdmissionController = {
             return [
                 {
                     "id": 1,
-                    "categoryName": "Hindu"
+                    "religionName": "Hindu"
                 },
                 {
                     "id": 2,
-                    "categoryName": "Muslim"
+                    "religionName": "Muslim"
                 },
                 {
                     "id": 3,
-                    "categoryName": "Sikh"
+                    "religionName": "Sikh"
                 },
                 {
                     "id": 4,
-                    "categoryName": "Cristian"
+                    "religionName": "Cristian"
                 },
                 {
                     "id": 999,
-                    "categoryName": "Others"
+                    "religionName": "Others"
                 }
             ]
         }
 
         try {
             // const allReligionsResult = await fetch(url, OPTIONS);
-            const allReligionsResult = await getDummyReligions();
-            finalReligionsResult = await allReligionsResult.json();
+            // finalReligionsResult = await allReligionsResult.json();
+            const finalReligionsResult = await getDummyReligions();
+            console.log("finalReligionsResult : "+JSON.stringify(finalReligionsResult));
             let allReligions = [];
 
             for (let tempReligion of finalReligionsResult) {
@@ -64,7 +65,7 @@ const ManageAdmissionController = {
     },
 
     async fetchAllCategories() {
-        const url = `${productApiConfig.getAllCategoriesEndPoint}`;
+        const url = `${admissionApiConfig.getAllCategoriesEndPoint}`;
         const OPTIONS = {
             method: 'GET',
             headers: {
@@ -105,8 +106,8 @@ const ManageAdmissionController = {
 
         try {
             // const allCategoriesResult = await fetch(url, OPTIONS);
-            const allCategoriesResult = await getDummyCat();
-            finalAllCategoriesResult = await allCategoriesResult.json();
+            // finalAllCategoriesResult = await allCategoriesResult.json();
+            const finalAllCategoriesResult = await getDummyCat();
             let allCategories = [];
 
             for (let tempCategory of finalAllCategoriesResult) {

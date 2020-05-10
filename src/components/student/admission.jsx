@@ -28,6 +28,7 @@ export default class Admission extends Component {
       dialogMessage: '',
       errors: [],
       user: {},
+      labelWidth: 135,
       registrationId: '123456',
       studentName: '',
       fatherName: '',
@@ -99,13 +100,20 @@ export default class Admission extends Component {
   }
 
   async fetchReligions() {
-    const activeProductCategories = await ManageAdmissionController.fetchReligions();
-    this.setState({ allReligions: activeProductCategories });
+    const allReligions = await ManageAdmissionController.fetchReligions();
+    this.setState({ allReligions: allReligions });
   }
   async fetchAllCategories() {
-    const allProduct = await ManageAdmissionController.fetchAllCategories();
-    this.setState({ allCategories: allProduct });
+    const allCategories = await ManageAdmissionController.fetchAllCategories();
+    this.setState({ allCategories: allCategories });
   }
+
+  handleReligionChange = async (event) => {
+    const religion = event.target.value;
+    this.setState({
+      religion: `${religion}`
+    });
+  };
 
   render() {
     let studentNameErrMsg = null;
@@ -160,34 +168,34 @@ export default class Admission extends Component {
               </Typography>
             </div>
             <div className='create-admission-sub-container'>
-              <FormControl required variant='outlined' className='formControl'>
-                <div className='student-info-container'>
-                  <div className='admission-field'>
-                    <TextField
-                      disabled
-                      id='registrationId'
-                      label='Registration Number'
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      value={this.state.registrationId}
-                    />
-                  </div>
-                  <div className='admission-field'>
-                    <TextField
-                      id='studentName'
-                      label='Student Name'
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      required={true}
-                      onChange={this.handleChange}
-                      value={this.state.studentName}
-                    />
-                  </div>
-                  <div className='admission-field-gender'>
+              <div className='student-info-container'>
+                <div className='admission-field'>
+                  <TextField
+                    disabled
+                    id='registrationId'
+                    label='Registration Number'
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    value={this.state.registrationId}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <TextField
+                    id='studentName'
+                    label='Student Name'
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    required={true}
+                    onChange={this.handleChange}
+                    value={this.state.studentName}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <FormControl required variant='outlined' className='formControl'>
                     <FormLabel component='legend'>Gender</FormLabel>
                     <RadioGroup
                       row
@@ -209,48 +217,89 @@ export default class Admission extends Component {
                         labelPlacement='start'
                       />
                     </RadioGroup>
-                  </div>
-                  <div className='admission-field'>
-                    <TextField
-                      id='fatherName'
-                      label="Father's Name"
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      required={true}
-                      onChange={this.handleChange}
-                      value={this.state.fatherName}
-                    />
-                  </div>
-                  <div className='admission-field'>
-                    <TextField
-                      id='motherName'
-                      label="Mother's Name"
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      required={true}
-                      onChange={this.handleChange}
-                      value={this.state.motherName}
-                    />
-                  </div>
-                  <div className='admission-field'>
-                    <TextField
-                        id='dateOfBirth'
-                        label="Date Of Birth"
-                        variant='outlined'
-                        fullWidth
-                        className='admission-textfield'
-                        margin='normal'
-                        required={true}
-                        onChange={this.handleChange}
-                        value={this.state.dateOfBirth}
-                    />
-                  </div>
+                  </FormControl>
                 </div>
-              </FormControl>
+                <div className='admission-field'>
+                  <TextField
+                    id='fatherName'
+                    label="Father's Name"
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    required={true}
+                    onChange={this.handleChange}
+                    value={this.state.fatherName}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <TextField
+                    id='motherName'
+                    label="Mother's Name"
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    required={true}
+                    onChange={this.handleChange}
+                    value={this.state.motherName}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <TextField
+                      id='dateOfBirth'
+                      label="Date Of Birth"
+                      variant='outlined'
+                      fullWidth
+                      className='admission-textfield'
+                      margin='normal'
+                      required={true}
+                      onChange={this.handleChange}
+                      value={this.state.dateOfBirth}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <TextField
+                      disabled
+                      id='dateOfBirthWord'
+                      label="Date Of Birth (Words)"
+                      variant='outlined'
+                      fullWidth
+                      className='admission-textfield'
+                      margin='normal'
+                      required={true}
+                      onChange={this.handleChange}
+                      value={this.state.dateOfBirthWord}
+                  />
+                </div>
+                <div className='admission-field'>
+                  <FormControl required variant='outlined' className='formControl'>
+                    <InputLabel ref={this.state.religion} id='religion-label'>
+                      Religion
+                    </InputLabel>
+                    <Select
+                        labelId='religion-select-outlined-label'
+                        id='religion'
+                        value={this.state.religion}
+                        labelWidth={this.state.labelWidth}
+                        className='selectEmpty'
+                        onChange={this.handleReligionChange}
+                    >
+                      <MenuItem value=''>
+                        <em>None</em>
+                      </MenuItem>
+                      {this.state.allReligions.map((religion) => (
+                          <MenuItem
+                              key={religion.id}
+                              value={religion.religionName}
+                          >
+                            {religion.religionName}
+                          </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
             </div>
           </div>
         </div>

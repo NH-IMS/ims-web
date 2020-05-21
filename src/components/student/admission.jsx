@@ -42,6 +42,7 @@ export default class Admission extends Component {
       allCategories: [],
       isHandicap: false,
       isSpecialNeedReq: false,
+      createBtnText: 'Register Student',
     };
   }
 
@@ -95,7 +96,7 @@ export default class Admission extends Component {
     this.fetchReligions();
     this.fetchAllCategories();
     // } else {
-    //   this.props.history.push('/');
+    // this.props.history.push('/');
     // }
   }
 
@@ -111,9 +112,13 @@ export default class Admission extends Component {
   handleReligionChange = async (event) => {
     const religion = event.target.value;
     this.setState({
-      religion: `${religion}`
+      religion: `${religion}`,
     });
   };
+
+  handleRegisterStudent() {}
+
+  handleResetRegistration() {}
 
   render() {
     let studentNameErrMsg = null;
@@ -171,7 +176,7 @@ export default class Admission extends Component {
               <div className='student-info-container'>
                 <div className='admission-field'>
                   <TextField
-                    disabled
+                    readOnly
                     id='registrationId'
                     label='Registration Number'
                     variant='outlined'
@@ -195,7 +200,11 @@ export default class Admission extends Component {
                   />
                 </div>
                 <div className='admission-field'>
-                  <FormControl required variant='outlined' className='formControl'>
+                  <FormControl
+                    required
+                    variant='outlined'
+                    className='formControl'
+                  >
                     <FormLabel component='legend'>Gender</FormLabel>
                     <RadioGroup
                       row
@@ -247,57 +256,78 @@ export default class Admission extends Component {
                 </div>
                 <div className='admission-field'>
                   <TextField
-                      id='dateOfBirth'
-                      label="Date Of Birth"
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      required={true}
-                      onChange={this.handleChange}
-                      value={this.state.dateOfBirth}
+                    id='dateOfBirth'
+                    label='Date Of Birth'
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    required={true}
+                    onChange={this.handleChange}
+                    value={this.state.dateOfBirth}
                   />
                 </div>
                 <div className='admission-field'>
                   <TextField
-                      disabled
-                      id='dateOfBirthWord'
-                      label="Date Of Birth (Words)"
-                      variant='outlined'
-                      fullWidth
-                      className='admission-textfield'
-                      margin='normal'
-                      required={true}
-                      onChange={this.handleChange}
-                      value={this.state.dateOfBirthWord}
+                    disabled
+                    id='dateOfBirthWord'
+                    label='Date Of Birth (Words)'
+                    variant='outlined'
+                    fullWidth
+                    className='admission-textfield'
+                    margin='normal'
+                    required={true}
+                    onChange={this.handleChange}
+                    value={this.state.dateOfBirthWord}
                   />
                 </div>
                 <div className='admission-field'>
-                  <FormControl required variant='outlined' className='formControl'>
+                  <FormControl
+                    required
+                    variant='outlined'
+                    className='formControl'
+                  >
                     <InputLabel ref={this.state.religion} id='religion-label'>
                       Religion
                     </InputLabel>
                     <Select
-                        labelId='religion-select-outlined-label'
-                        id='religion'
-                        value={this.state.religion}
-                        labelWidth={this.state.labelWidth}
-                        className='selectEmpty'
-                        onChange={this.handleReligionChange}
+                      labelId='religion-select-outlined-label'
+                      id='religion'
+                      value={this.state.religion}
+                      labelWidth={this.state.labelWidth}
+                      className='selectEmpty'
+                      onChange={this.handleReligionChange}
                     >
                       <MenuItem value=''>
                         <em>None</em>
                       </MenuItem>
                       {this.state.allReligions.map((religion) => (
-                          <MenuItem
-                              key={religion.id}
-                              value={religion.religionName}
-                          >
-                            {religion.religionName}
-                          </MenuItem>
+                        <MenuItem
+                          key={religion.id}
+                          value={religion.religionName}
+                        >
+                          {religion.religionName}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
+                </div>
+                <div className='admissionBtnDiv'>
+                  <Button
+                    id='createBtn'
+                    className='gradient-button btn-primary-admission'
+                    onClick={this.handleRegisterStudent}
+                  >
+                    {this.state.createBtnText}
+                  </Button>
+                  <Button
+                    id='resetBtn'
+                    color='primary'
+                    className='gradient-button btn-primary-admission'
+                    onClick={this.handleResetRegistration}
+                  >
+                    Reset
+                  </Button>
                 </div>
               </div>
             </div>

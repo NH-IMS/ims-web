@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Sidebar.scss';
 import ArrowTooltip from '../components/common/arrowTooltip';
 import Auth from '../Auth';
@@ -46,18 +47,18 @@ export default class Sidebar extends Component {
                 </ListItem>
               </ArrowTooltip>
             </Link>
-            {/* <Divider />
-            <Link to='/ioms/manage/product/category'>
-              <ArrowTooltip title='Manage Product Category' placement='right'>
+            <Divider />
+            <Link to='/ioms/staff/registration'>
+              <ArrowTooltip title='Register Staff' placement='right'>
                 <ListItem button className='material-ui-icon menu-text'>
                   <ListItemIcon>
-                    <FontAwesomeIcon icon='file-signature' size='2x' />
+                    <FontAwesomeIcon icon={faUserTie} size='2x' />
                   </ListItemIcon>
-                  <ListItemText primary='Manage Product Category' />
+                  <ListItemText primary='Register Staff' />
                 </ListItem>
               </ArrowTooltip>
             </Link>
-            <Divider />
+            {/*<Divider />
             <Link to='/ioms/manage/product/'>
               <ArrowTooltip title='Manage Product' placement='right'>
                 <ListItem button className='material-ui-icon menu-text'>

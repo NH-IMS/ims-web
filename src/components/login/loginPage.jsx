@@ -185,7 +185,7 @@ export default class Login extends Component {
                 </div>
                 <div className='footer'>
                   <div className='loginBtnDiv'>
-                    <button type='submit' className='loginBtn'>
+                    <button type='submit' className='gradient-button loginBtn'>
                       Login
                     </button>
                   </div>
